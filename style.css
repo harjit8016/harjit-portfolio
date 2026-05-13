@@ -1358,3 +1358,70 @@ h2 {
     letter-spacing: -0.05em;
     line-height: 1;
 }
+
+/* Convocation feature block (NeoBrutalism: thick black border + hard shadow) */
+.convocation-feature {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background: #fff;
+    border: 4px solid #000;
+    box-shadow: 8px 8px 0 #000;
+}
+
+.convocation-video {
+    border: 4px solid #000;
+    box-shadow: 6px 6px 0 #FFE66D;
+    background: #000;
+    line-height: 0;
+}
+
+.convocation-video video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.convocation-caption {
+    padding: 0.5rem 0.5rem 0.5rem 0;
+}
+
+.convocation-badge {
+    display: inline-block;
+    background: #CCFF00;
+    border: 3px solid #000;
+    padding: 0.3rem 0.9rem;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    box-shadow: 3px 3px 0 #000;
+}
+
+.convocation-caption h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.75rem;
+    margin: 0 0 0.75rem 0;
+    letter-spacing: -0.02em;
+}
+
+.convocation-caption p {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .convocation-feature {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        padding: 1rem;
+        box-shadow: 5px 5px 0 #000;
+    }
+    .convocation-caption h3 {
+        font-size: 1.4rem;
+    }
+}
