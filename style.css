@@ -1342,23 +1342,6 @@ h2 {
     }
 }
 
-/* Profile initials (used when no profile photo is available) */
-.profile-initials {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    min-height: 360px;
-    background: linear-gradient(135deg, #00F5FF 0%, #FF66C4 100%);
-    color: #000;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 8rem;
-    letter-spacing: -0.05em;
-    line-height: 1;
-}
-
 /* Convocation feature block (NeoBrutalism: thick black border + hard shadow) */
 .convocation-feature {
     display: grid;
