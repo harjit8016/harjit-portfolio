@@ -75,6 +75,7 @@ h2 {
 
 .hero {
     min-height: 100vh;
+    min-height: 100svh; /* iOS Safari dynamic viewport — no jump when address bar collapses */
     display: flex;
     align-items: center;
     padding: 4rem 0;
@@ -1515,4 +1516,225 @@ h2 {
 .exp-section h4 a:hover,
 .experience-item ul li a:hover {
     background: #FFE66D;
+}
+
+/* ============================
+   MOBILE FIXES — focused patches for narrow screens
+   ============================ */
+
+/* Proud-card header (icon + title): stack on phones so the title can breathe */
+@media (max-width: 600px) {
+    .proud-header {
+        flex-direction: row;
+        gap: 0.75rem;
+    }
+    .proud-app-icon {
+        width: 52px;
+        height: 52px;
+        box-shadow: 2px 2px 0 #000;
+    }
+    .proud-header h3 {
+        font-size: 1.15rem;
+        line-height: 1.25;
+    }
+    .proud-meta {
+        font-size: 0.85rem;
+    }
+}
+
+/* Experience meta block: stack location + date so they don't squeeze */
+@media (max-width: 768px) {
+    .exp-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+}
+
+/* About card App Store rows: make sure long lines wrap cleanly */
+@media (max-width: 480px) {
+    .app-link {
+        padding: 0.5rem;
+        gap: 0.6rem;
+        box-shadow: 3px 3px 0 #000;
+    }
+    .app-icon-sm {
+        width: 40px;
+        height: 40px;
+    }
+    .app-link span {
+        font-size: 0.82rem;
+    }
+}
+
+/* Hero decorative icons can overhang on tiny phones — keep them inside */
+@media (max-width: 480px) {
+    .icon-1 { left: -10px; top: -10px; }
+    .icon-2 { right: -10px; top: 20px; }
+    .icon-3 { left: -10px; bottom: 15px; }
+    .profile-container { padding-bottom: 70px; }
+}
+
+/* Convocation block: tighten on very small screens */
+@media (max-width: 480px) {
+    .convocation-feature {
+        padding: 0.75rem;
+        box-shadow: 4px 4px 0 #000;
+        margin-bottom: 2rem;
+    }
+    .convocation-video {
+        box-shadow: 4px 4px 0 #FFE66D;
+    }
+    .convocation-caption h3 {
+        font-size: 1.2rem;
+    }
+    .convocation-caption p {
+        font-size: 0.95rem;
+    }
+    .convocation-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.7rem;
+    }
+}
+
+/* Featured-projects header (icon + title + date): allow wrap on phones */
+@media (max-width: 480px) {
+    .project-header {
+        flex-wrap: wrap;
+    }
+    .project-icon {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Tighter hero padding on phones so the photo + buttons don't both need to scroll */
+@media (max-width: 600px) {
+    .hero {
+        padding: 2.5rem 0 3rem;
+    }
+    .bio {
+        padding: 1.1rem;
+        box-shadow: 4px 4px 0 #000;
+    }
+}
+
+/* Honor reduced-motion: kill the float / bounce / glitch animations */
+@media (prefers-reduced-motion: reduce) {
+    .glitch,
+    .profile-frame,
+    .decorative-icon {
+        animation: none !important;
+    }
+    .profile-frame {
+        transform: rotate(3deg);
+    }
+}
+
+/* ============================
+   HIRE-ME RIBBON (hero)
+   ============================ */
+.hire-ribbon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 1rem;
+    padding: 0.55rem 1rem;
+    background: var(--color-lime);
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+.hire-ribbon strong {
+    font-weight: 700;
+}
+.hire-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #00c853;
+    box-shadow: 0 0 0 2px #000;
+    animation: hire-pulse 2.2s ease-in-out infinite;
+}
+@keyframes hire-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.35); opacity: 0.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hire-dot { animation: none; }
+}
+@media (max-width: 480px) {
+    .hire-ribbon { font-size: 0.82rem; padding: 0.45rem 0.8rem; }
+}
+
+/* ============================
+   FAQ SECTION
+   ============================ */
+.faq-section {
+    padding: 5rem 0;
+    background: var(--color-bg);
+}
+.faq-lead {
+    margin: -1.5rem 0 2rem;
+    font-size: 1.05rem;
+    max-width: 720px;
+}
+.faq-item {
+    background: #fff;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+    padding: 0;
+    overflow: hidden;
+}
+.faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.1rem 1.4rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: background 0.15s ease;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+    content: "+";
+    font-family: 'Space Mono', monospace;
+    font-size: 1.6rem;
+    line-height: 1;
+    background: var(--color-yellow);
+    border: 2px solid #000;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.faq-item[open] summary { background: var(--color-yellow); }
+.faq-item[open] summary::after { content: "−"; background: var(--color-cyan); }
+.faq-item p {
+    padding: 0 1.4rem 1.3rem;
+    margin: 0;
+    line-height: 1.65;
+    font-size: 1rem;
+}
+.faq-item p a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+.faq-item p a:hover { background: var(--color-yellow); }
+
+@media (max-width: 480px) {
+    .faq-item summary { font-size: 0.95rem; padding: 0.9rem 1.1rem; }
+    .faq-item p { padding: 0 1.1rem 1.1rem; font-size: 0.95rem; }
+    .faq-section { padding: 3rem 0; }
 }

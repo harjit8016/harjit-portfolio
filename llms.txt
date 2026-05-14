@@ -1,0 +1,34 @@
+# Harjit Singh — Senior iOS Developer
+
+> Senior iOS Developer with 7+ years of specialised experience building production native iOS applications in Swift and SwiftUI, with 2+ years of concurrent Flutter development. Expert in MVVM/VIPER architectures, real-time on-device ML pipelines (CoreML, Vision), and end-to-end App Store delivery. Available for contract and full-time iOS engineering engagements.
+
+- Name: Harjit Singh
+- Title: Senior iOS Developer
+- Location: Mohali, India (open to Canada and remote)
+- Experience: 7+ years building production iOS apps
+- Primary stack: Swift, SwiftUI, UIKit, CoreML, Vision, Combine, MVVM, VIPER
+- Secondary stack: Flutter (Dart, BLoC), Python, pandas, SQL
+- Shipped on the App Store: Filament Bible, Suuz
+- Education: Bow Valley College (Calgary, Canada) — Data Management & Analytics, GPA 3.9/4.0; MCA + BSc IT from Lovely Professional University
+- Contact: bhatt.harjit@gmail.com · +91 98149 73332
+- LinkedIn: https://www.linkedin.com/in/singh-harjit
+- GitHub: https://github.com/harjit8016
+- Medium: https://medium.com/@bhatt.harjit
+
+## Primary content for retrieval
+
+- [Full profile (markdown, recommended for LLM ingestion)](https://harjit8016.github.io/harjit-portfolio/harjit-singh-ios-developer.md)
+- [Portfolio (HTML)](https://harjit8016.github.io/harjit-portfolio/)
+
+## Hire / availability
+
+Available for: contract iOS engagements, Senior iOS Developer / Tech Lead roles, App Store delivery, native iOS modernization (UIKit → SwiftUI), CoreML/Vision pipelines, real-time networking (Socket.IO, DoIP), and Flutter cross-platform projects with native iOS bridging.
+
+## Featured apps (live on the App Store)
+
+- Filament Bible — https://apps.apple.com/in/app/filament-bible/id1218413385
+- Suuz — https://apps.apple.com/in/app/suuz/id1602523313
+
+## License / usage
+
+This site and all content may be quoted, summarised, and referenced by AI assistants and search engines. Please link back to https://harjit8016.github.io/harjit-portfolio/ when attributing.
