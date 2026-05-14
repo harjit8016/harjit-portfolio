@@ -38,6 +38,16 @@ body {
     padding: 0 20px;
 }
 
+/* Tighter container on phones so cards can breathe edge-to-edge.
+   Container right padding stays slightly larger to absorb the
+   NeoBrutal hard shadow without it looking like phantom whitespace. */
+@media (max-width: 768px) {
+    .container { padding-left: 16px; padding-right: 16px; }
+}
+@media (max-width: 480px) {
+    .container { padding-left: 14px; padding-right: 14px; }
+}
+
 /* ============================
    TYPOGRAPHY
    ============================ */
@@ -1783,20 +1793,29 @@ h2 {
 }
 
 /* ============================================================
-   MOBILE OVERHAUL — fix horizontal scroll, off-center content,
-   and excessive whitespace. This block intentionally comes LAST
-   so its rules win the cascade.
+   MOBILE OVERHAUL — single source of truth for the responsive
+   layout. Comes LAST so its rules win the cascade.
+
+   Design intent:
+   - Cards extend close to viewport edges (small container padding).
+   - Hard shadows shrink so they don't hog the visible right gutter.
+   - Section padding alone controls inter-section gaps — trailing
+     margin-bottoms on the LAST child of each section are zero'd so
+     they can't compound with section padding.
+   - Inline-block "chips" (.section-title, .hire-ribbon) center
+     themselves on phones because their parent container is set
+     to text-align: center.
+   - Touch devices never trigger :hover transforms (which were
+     pushing the page past the viewport edge on tap).
    ============================================================ */
 
-/* 1. Stop horizontal scroll at the document level.
-      overflow-x: clip is stronger than hidden — `hidden` still
-      allows programmatic scrolling on iOS Safari (a known source
-      of phantom horizontal scroll). */
+/* 1. Hard-stop any horizontal scroll. overflow-x: clip is stronger
+      than hidden — `hidden` still permits programmatic scrolling on
+      iOS Safari (the source of "rubber-band" horizontal drift). */
 html, body { overflow-x: clip; }
 
-/* 2. Touch devices have no real hover — don't enlarge shadows or
-      shift positions when a user simply taps a card. The old hover
-      rules were what pushed the page past the viewport edge on tap. */
+/* 2. Touch devices have no real hover. Disable hover transforms and
+      shadow growth so a tap doesn't grow the card past the viewport. */
 @media (hover: none) {
     .experience-item:hover,
     .about-card:hover,
@@ -1821,27 +1840,7 @@ html, body { overflow-x: clip; }
     .stat-box:hover        { box-shadow: 6px 6px 0 #000 !important; }
 }
 
-/* 3. Shrink hard shadows on phones so they never overhang the
-      viewport edge (works in tandem with overflow-x: clip). */
-@media (max-width: 600px) {
-    .experience-item     { box-shadow: 5px 5px 0 #000; }
-    .about-card          { box-shadow: 5px 5px 0 #000; }
-    .proud-card          { box-shadow: 5px 5px 0 #000; }
-    .principle-box       { box-shadow: 5px 5px 0 #000; }
-    .principle-statement { box-shadow: 5px 5px 0 #000; }
-    .channel-info        { box-shadow: 5px 5px 0 #000; }
-    .contact-card        { box-shadow: 5px 5px 0 #000; }
-    .skill-tag           { box-shadow: 4px 4px 0 #000; }
-    .stat-box            { box-shadow: 4px 4px 0 #000; transform: none; }
-    .video-card          { box-shadow: 5px 5px 0 #000; }
-    .featured-title      { box-shadow: 4px 4px 0 #000; }
-    .awards-compact      { box-shadow: 3px 3px 0 #000; }
-}
-
-/* 4. Center the inline-block section-title chips on phones.
-      They were left-anchored because they're inline-block — the
-      transform: rotate(-2deg) was being killed at <=768 but no
-      centering was applied. */
+/* 3. Center the section-title chips and hire ribbon on phones. */
 @media (max-width: 768px) {
     .about > .container,
     .principles > .container,
@@ -1860,7 +1859,7 @@ html, body { overflow-x: clip; }
         margin-left: auto;
         margin-right: auto;
     }
-    /* …but body content inside sections stays left-aligned for readability */
+    /* Body content inside cards stays left-aligned for readability */
     .experience-item,
     .about-card,
     .proud-card,
@@ -1878,31 +1877,9 @@ html, body { overflow-x: clip; }
     .contact-card { text-align: center; }
 }
 
-/* 5. Reduce section padding so phones don't have huge gaps between
-      sections. Desktop stays at 6rem 0; phones step down. */
+/* 4. <= 768 — first phone breakpoint. */
 @media (max-width: 768px) {
-    .about,
-    .principles,
-    .experience,
-    .skills,
-    .youtube-section,
-    .faq-section,
-    .contact,
-    .projects-section {
-        padding: 3.5rem 0;
-    }
-    .experience-item     { padding: 1.5rem; margin-bottom: 1.5rem; }
-    .about-card          { padding: 1.5rem; }
-    .proud-card          { padding: 1.5rem; }
-    .principle-statement { padding: 1.5rem; }
-    .channel-info        { padding: 1.5rem; margin-bottom: 1.5rem; }
-    .youtube-header      { margin-bottom: 2rem; }
-    .principles-intro    { margin-bottom: 2.5rem; }
-    .principles-footer   { margin-top: 1rem; margin-bottom: 2rem; }
-    .proud-work-grid     { margin-bottom: 2rem; }
-    .section-title       { margin-bottom: 2rem; }
-}
-@media (max-width: 480px) {
+    /* Section padding (top/bottom) — single number controls all gaps. */
     .about,
     .principles,
     .experience,
@@ -1913,15 +1890,86 @@ html, body { overflow-x: clip; }
     .projects-section {
         padding: 2.5rem 0;
     }
-    .experience-item { padding: 1.2rem; margin-bottom: 1.2rem; }
+    /* Card paddings step down too. */
+    .experience-item,
+    .about-card,
+    .proud-card,
+    .principle-statement,
+    .channel-info { padding: 1.5rem; }
+
+    /* Trailing margins reset — section padding alone owns the gap.
+       This is the fix for the "huge white space under the last card". */
+    .proud-work-grid,
+    .principles-footer,
+    .principles-intro,
+    .channel-info,
+    .youtube-header,
+    .experience-item:last-child,
+    .about-grid,
+    .projects-grid,
+    .videos-grid,
+    .convocation-feature,
+    .skills-grid,
+    .contact-grid,
+    .awards-compact { margin-bottom: 0; }
+
+    /* Intermediate spacing between blocks inside a section. */
+    .proud-work-grid       { margin-bottom: 1.5rem; }   /* not last in section */
+    .principles-intro      { margin-bottom: 1.5rem; }
+    .principles-footer     { margin-top: 1rem; margin-bottom: 1.5rem; }
+    .experience-item       { margin-bottom: 1.2rem; }
+    .experience-item:last-child { margin-bottom: 0; }
+    .section-title         { margin-bottom: 1.75rem; }
+
+    /* Shrink shadows so they don't hog the right gutter on phones. */
+    .experience-item,
+    .about-card,
+    .proud-card,
+    .principle-box,
+    .principle-statement,
+    .channel-info,
+    .contact-card,
+    .video-card        { box-shadow: 4px 4px 0 #000; }
+    .skill-tag,
+    .featured-title    { box-shadow: 3px 3px 0 #000; }
+    .stat-box          { box-shadow: 3px 3px 0 #000; transform: none; }
+    .awards-compact    { box-shadow: 3px 3px 0 #000; }
+
+    /* Experience header tightening. */
+    .exp-header { gap: 0.6rem; }
+    .location, .date { font-size: 0.85rem; padding: 0.35rem 0.7rem; }
 }
 
-/* 6. Hero: stop forcing a full viewport on phones, and tighten the
-      80px gap reserved under the photo for badges (badges are smaller
-      on mobile, so the original reservation is wasted whitespace). */
+/* 5. <= 480 — small phones; tighten further. */
+@media (max-width: 480px) {
+    .about,
+    .principles,
+    .experience,
+    .skills,
+    .youtube-section,
+    .faq-section,
+    .contact,
+    .projects-section {
+        padding: 2rem 0;
+    }
+    .experience-item,
+    .about-card,
+    .proud-card,
+    .principle-statement,
+    .channel-info { padding: 1.25rem; }
+
+    .proud-work-grid   { margin-bottom: 1.2rem; }
+    .principles-intro  { margin-bottom: 1.2rem; }
+    .principles-footer { margin-top: 0.75rem; margin-bottom: 1.2rem; }
+    .experience-item   { margin-bottom: 1rem; }
+    .section-title     { margin-bottom: 1.4rem; }
+}
+
+/* 6. Hero: don't force a full viewport on phones, tighten profile
+      padding-bottom (the badges are smaller so they don't need 80px). */
 @media (max-width: 600px) {
     .hero {
-        min-height: auto;        /* was 100svh — removed forced screen-fill */
+        min-height: auto;
         padding: 2.5rem 0 3rem;
     }
     .profile-container { padding-bottom: 55px; }
@@ -1930,9 +1978,9 @@ html, body { overflow-x: clip; }
     .profile-container { padding-bottom: 45px; }
 }
 
-/* 7. Constant 3° rotation + float animation on .profile-frame can
-      push its bounding box past the viewport on tiny phones.
-      Freeze rotation/animation on the narrowest devices. */
+/* 7. Tiny phones (<= 360): kill the constant 3° rotation + float
+      animation on the photo frame — the rotated bounding box plus
+      shadow can otherwise still nudge past the container. */
 @media (max-width: 360px) {
     .profile-frame {
         transform: rotate(1deg);
@@ -1940,16 +1988,5 @@ html, body { overflow-x: clip; }
     }
 }
 
-/* 8. Tighten the experience location/date chips on phones so they
-      don't dominate the header row. */
-@media (max-width: 768px) {
-    .exp-header { gap: 0.6rem; }
-    .location, .date {
-        font-size: 0.85rem;
-        padding: 0.35rem 0.7rem;
-    }
-}
-
-/* 9. Make any wide content (images, videos, code) truly responsive —
-      defensive, in case an inline element forgot a width: 100%. */
+/* 8. Defensive: any embedded media stays responsive. */
 img, video, iframe, embed { max-width: 100%; height: auto; }
