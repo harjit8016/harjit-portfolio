@@ -1034,7 +1034,12 @@ h2 {
     text-decoration: none;
     color: var(--color-text);
     transition: all 0.3s;
-    display: block;
+    /* center content vertically + horizontally so cards stay aligned
+       even when one card's content differs in height (e.g. long email) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .contact-card:hover {
@@ -1062,9 +1067,11 @@ h2 {
     max-width: 100%;
 }
 
-/* Email card: keep the address on one line, tighter padding, no wrap */
+/* Email card: keep the address on one line — only trim the SIDE padding so
+   the address fits; preserve top/bottom padding so vertical alignment with
+   the other contact cards is identical. */
 .card-email {
-    padding: 2rem 1rem;            /* was 3rem 2rem — trim so 22 chars fit */
+    padding: 3rem 1rem;            /* was 3rem 2rem — only horizontal trim */
 }
 .card-email p {
     font-size: 0.88rem;
