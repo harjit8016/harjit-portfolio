@@ -1781,3 +1781,175 @@ h2 {
     .faq-item p { padding: 0 1.1rem 1.1rem; font-size: 0.95rem; }
     .faq-section { padding: 3rem 0; }
 }
+
+/* ============================================================
+   MOBILE OVERHAUL — fix horizontal scroll, off-center content,
+   and excessive whitespace. This block intentionally comes LAST
+   so its rules win the cascade.
+   ============================================================ */
+
+/* 1. Stop horizontal scroll at the document level.
+      overflow-x: clip is stronger than hidden — `hidden` still
+      allows programmatic scrolling on iOS Safari (a known source
+      of phantom horizontal scroll). */
+html, body { overflow-x: clip; }
+
+/* 2. Touch devices have no real hover — don't enlarge shadows or
+      shift positions when a user simply taps a card. The old hover
+      rules were what pushed the page past the viewport edge on tap. */
+@media (hover: none) {
+    .experience-item:hover,
+    .about-card:hover,
+    .proud-card:hover,
+    .project-item:hover,
+    .contact-card:hover,
+    .skill-tag:hover,
+    .stat-box:hover,
+    .app-link:hover,
+    .video-card:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .btn-youtube:hover {
+        transform: none !important;
+    }
+    .experience-item:hover { box-shadow: var(--shadow) !important; }
+    .about-card:hover      { box-shadow: var(--shadow) !important; }
+    .proud-card:hover      { box-shadow: var(--shadow) !important; }
+    .project-item:hover    { box-shadow: 3px 3px 0 #000 !important; }
+    .contact-card:hover    { box-shadow: var(--shadow) !important; }
+    .skill-tag:hover       { box-shadow: 6px 6px 0 #000 !important; }
+    .stat-box:hover        { box-shadow: 6px 6px 0 #000 !important; }
+}
+
+/* 3. Shrink hard shadows on phones so they never overhang the
+      viewport edge (works in tandem with overflow-x: clip). */
+@media (max-width: 600px) {
+    .experience-item     { box-shadow: 5px 5px 0 #000; }
+    .about-card          { box-shadow: 5px 5px 0 #000; }
+    .proud-card          { box-shadow: 5px 5px 0 #000; }
+    .principle-box       { box-shadow: 5px 5px 0 #000; }
+    .principle-statement { box-shadow: 5px 5px 0 #000; }
+    .channel-info        { box-shadow: 5px 5px 0 #000; }
+    .contact-card        { box-shadow: 5px 5px 0 #000; }
+    .skill-tag           { box-shadow: 4px 4px 0 #000; }
+    .stat-box            { box-shadow: 4px 4px 0 #000; transform: none; }
+    .video-card          { box-shadow: 5px 5px 0 #000; }
+    .featured-title      { box-shadow: 4px 4px 0 #000; }
+    .awards-compact      { box-shadow: 3px 3px 0 #000; }
+}
+
+/* 4. Center the inline-block section-title chips on phones.
+      They were left-anchored because they're inline-block — the
+      transform: rotate(-2deg) was being killed at <=768 but no
+      centering was applied. */
+@media (max-width: 768px) {
+    .about > .container,
+    .principles > .container,
+    .experience > .container,
+    .skills > .container,
+    .youtube-section > .container,
+    .faq-section > .container,
+    .contact > .container,
+    .projects-section > .container {
+        text-align: center;
+    }
+    .section-title,
+    .section-title-small,
+    .featured-title,
+    .hire-ribbon {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* …but body content inside sections stays left-aligned for readability */
+    .experience-item,
+    .about-card,
+    .proud-card,
+    .principle-box,
+    .principle-statement,
+    .channel-info,
+    .video-card,
+    .project-item,
+    .faq-item,
+    .convocation-feature,
+    .faq-lead {
+        text-align: left;
+    }
+    .awards-compact,
+    .contact-card { text-align: center; }
+}
+
+/* 5. Reduce section padding so phones don't have huge gaps between
+      sections. Desktop stays at 6rem 0; phones step down. */
+@media (max-width: 768px) {
+    .about,
+    .principles,
+    .experience,
+    .skills,
+    .youtube-section,
+    .faq-section,
+    .contact,
+    .projects-section {
+        padding: 3.5rem 0;
+    }
+    .experience-item     { padding: 1.5rem; margin-bottom: 1.5rem; }
+    .about-card          { padding: 1.5rem; }
+    .proud-card          { padding: 1.5rem; }
+    .principle-statement { padding: 1.5rem; }
+    .channel-info        { padding: 1.5rem; margin-bottom: 1.5rem; }
+    .youtube-header      { margin-bottom: 2rem; }
+    .principles-intro    { margin-bottom: 2.5rem; }
+    .principles-footer   { margin-top: 1rem; margin-bottom: 2rem; }
+    .proud-work-grid     { margin-bottom: 2rem; }
+    .section-title       { margin-bottom: 2rem; }
+}
+@media (max-width: 480px) {
+    .about,
+    .principles,
+    .experience,
+    .skills,
+    .youtube-section,
+    .faq-section,
+    .contact,
+    .projects-section {
+        padding: 2.5rem 0;
+    }
+    .experience-item { padding: 1.2rem; margin-bottom: 1.2rem; }
+}
+
+/* 6. Hero: stop forcing a full viewport on phones, and tighten the
+      80px gap reserved under the photo for badges (badges are smaller
+      on mobile, so the original reservation is wasted whitespace). */
+@media (max-width: 600px) {
+    .hero {
+        min-height: auto;        /* was 100svh — removed forced screen-fill */
+        padding: 2.5rem 0 3rem;
+    }
+    .profile-container { padding-bottom: 55px; }
+}
+@media (max-width: 480px) {
+    .profile-container { padding-bottom: 45px; }
+}
+
+/* 7. Constant 3° rotation + float animation on .profile-frame can
+      push its bounding box past the viewport on tiny phones.
+      Freeze rotation/animation on the narrowest devices. */
+@media (max-width: 360px) {
+    .profile-frame {
+        transform: rotate(1deg);
+        animation: none;
+    }
+}
+
+/* 8. Tighten the experience location/date chips on phones so they
+      don't dominate the header row. */
+@media (max-width: 768px) {
+    .exp-header { gap: 0.6rem; }
+    .location, .date {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.7rem;
+    }
+}
+
+/* 9. Make any wide content (images, videos, code) truly responsive —
+      defensive, in case an inline element forgot a width: 100%. */
+img, video, iframe, embed { max-width: 100%; height: auto; }
