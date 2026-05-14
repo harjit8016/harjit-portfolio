@@ -1888,7 +1888,7 @@ html, body { overflow-x: clip; }
     .faq-section,
     .contact,
     .projects-section {
-        padding: 2.5rem 0;
+        padding: 2rem 0;
     }
     /* Card paddings step down too. */
     .experience-item,
@@ -1897,31 +1897,56 @@ html, body { overflow-x: clip; }
     .principle-statement,
     .channel-info { padding: 1.5rem; }
 
-    /* Trailing margins reset — section padding alone owns the gap.
-       This is the fix for the "huge white space under the last card". */
+    /* === Section titles: HUGE on mobile (80px tall, sometimes wider
+       than the viewport — that was the horizontal-overflow source).
+       Shrink them aggressively. === */
+    .section-title {
+        font-size: 1.3rem;
+        padding: 0.55rem 1.1rem;
+        margin-bottom: 1.25rem;
+        box-shadow: 4px 4px 0 #000;
+        max-width: calc(100% - 8px);   /* never wider than container */
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
+    }
+    .section-title-small {
+        font-size: 1.1rem;
+        padding: 0.55rem 1rem;
+        margin-bottom: 1.25rem;
+    }
+    .featured-title {
+        font-size: 1.25rem;
+        padding: 0.55rem 1.1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    /* === Trailing-margin reset — last child of each section gets
+       margin-bottom: 0 so section padding alone owns the gap. === */
     .proud-work-grid,
     .principles-footer,
-    .principles-intro,
-    .channel-info,
-    .youtube-header,
-    .experience-item:last-child,
     .about-grid,
     .projects-grid,
     .videos-grid,
     .convocation-feature,
     .skills-grid,
     .contact-grid,
-    .awards-compact { margin-bottom: 0; }
+    .awards-compact,
+    .channel-info,
+    .youtube-header,
+    .principles-intro      { margin-bottom: 0; }
 
-    /* Intermediate spacing between blocks inside a section. */
-    .proud-work-grid       { margin-bottom: 1.5rem; }   /* not last in section */
-    .principles-intro      { margin-bottom: 1.5rem; }
-    .principles-footer     { margin-top: 1rem; margin-bottom: 1.5rem; }
-    .experience-item       { margin-bottom: 1.2rem; }
-    .experience-item:last-child { margin-bottom: 0; }
-    .section-title         { margin-bottom: 1.75rem; }
+    /* Intermediate spacing for items that ARE NOT the last child. */
+    .principles-intro      { margin-bottom: 1.25rem; }
+    .principles-footer     { margin-top: 0.75rem; margin-bottom: 1.25rem; }
+    .channel-info          { margin-bottom: 1.25rem; }
+    .youtube-header        { margin-bottom: 1.5rem; }
+    .convocation-feature   { margin-bottom: 1.5rem; }
 
-    /* Shrink shadows so they don't hog the right gutter on phones. */
+    /* Experience cards: gap between cards, but zero after the last one. */
+    .experience-item              { margin-bottom: 1rem; }
+    .experience-item:last-child   { margin-bottom: 0; }
+
+    /* Shadows: shrink so they don't hog the right gutter. */
     .experience-item,
     .about-card,
     .proud-card,
@@ -1936,8 +1961,13 @@ html, body { overflow-x: clip; }
     .awards-compact    { box-shadow: 3px 3px 0 #000; }
 
     /* Experience header tightening. */
-    .exp-header { gap: 0.6rem; }
+    .exp-header { gap: 0.6rem; margin-bottom: 1.25rem; }
     .location, .date { font-size: 0.85rem; padding: 0.35rem 0.7rem; }
+    .exp-section { margin-bottom: 1.25rem; }
+    .exp-section h4 { font-size: 1rem; padding: 0.5rem 0.9rem; margin-top: 0.5rem; margin-bottom: 0.6rem; }
+
+    /* Footer slimmer too. */
+    .footer { padding: 1.5rem 0; }
 }
 
 /* 5. <= 480 — small phones; tighten further. */
@@ -1950,7 +1980,7 @@ html, body { overflow-x: clip; }
     .faq-section,
     .contact,
     .projects-section {
-        padding: 2rem 0;
+        padding: 1.75rem 0;
     }
     .experience-item,
     .about-card,
@@ -1958,11 +1988,13 @@ html, body { overflow-x: clip; }
     .principle-statement,
     .channel-info { padding: 1.25rem; }
 
-    .proud-work-grid   { margin-bottom: 1.2rem; }
-    .principles-intro  { margin-bottom: 1.2rem; }
-    .principles-footer { margin-top: 0.75rem; margin-bottom: 1.2rem; }
-    .experience-item   { margin-bottom: 1rem; }
-    .section-title     { margin-bottom: 1.4rem; }
+    /* Trailing margins stay at 0 (set in the 768 block). Only override
+       intermediate items — items that are NOT the last child. */
+    .principles-intro  { margin-bottom: 1.1rem; }
+    .principles-footer { margin-top: 0.6rem; margin-bottom: 1.1rem; }
+    .experience-item   { margin-bottom: 0.9rem; }
+    .experience-item:last-child { margin-bottom: 0; }
+    .section-title     { margin-bottom: 1.1rem; padding: 0.5rem 1rem; font-size: 1.2rem; }
 }
 
 /* 6. Hero: don't force a full viewport on phones, tighten profile
