@@ -1062,10 +1062,20 @@ h2 {
     max-width: 100%;
 }
 
-/* Email card: long address gets a slightly smaller, fully-wrapped center treatment */
+/* Email card: keep the address on one line, tighter padding, no wrap */
+.card-email {
+    padding: 2rem 1rem;            /* was 3rem 2rem — trim so 22 chars fit */
+}
 .card-email p {
-    font-size: 0.95rem;
-    letter-spacing: -0.01em;
+    font-size: 0.88rem;
+    letter-spacing: -0.02em;
+    white-space: nowrap;           /* never break bhatt.harjit@gmail.com */
+    overflow-wrap: normal;
+    word-break: normal;
+}
+/* On tiny phones, lean on font-size more than padding */
+@media (max-width: 360px) {
+    .card-email p { font-size: 0.8rem; }
 }
 
 .card-linkedin {
