@@ -133,6 +133,21 @@ h2 {
     box-shadow: 6px 6px 0px #000;
 }
 
+.bio a {
+    color: #000;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    text-decoration-color: #000;
+    transition: background 0.15s ease;
+}
+.bio a:hover,
+.bio a:focus-visible {
+    background: var(--color-yellow);
+    outline: none;
+}
+
 .cta-buttons {
     display: flex;
     gap: 1.5rem;
@@ -1038,8 +1053,19 @@ h2 {
 }
 
 .contact-card p {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-family: 'Space Mono', monospace;
+    text-align: center;
+    overflow-wrap: anywhere;   /* break long emails / URLs cleanly inside the card */
+    word-break: break-word;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+/* Email card: long address gets a slightly smaller, fully-wrapped center treatment */
+.card-email p {
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
 }
 
 .card-linkedin {
